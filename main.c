@@ -14,7 +14,8 @@
 #define PASTED 11 /*P Paste from clipboard into data[DP]*/
 #define PASTEC 12 /*p Paste from clipboard into program[DP]*/
 #define TRAP 13 /*T Trap mode for debuging LOL*/
-#define OK 0 
+#define HALT 24 /*H stop executing, and end program*/
+#define OK 0
 #define ERRSTACK 100
 typedef enum { false, true } bool;
 
@@ -25,7 +26,7 @@ struct memory //whole machine memory
 	int ACC; //Accumulator
 	int CB; //Clipboard
 	int DP; //Data Pointer
-	bool TF; //Trap Flag 
+	bool TF; //Trap Flag
 	char program[256]; //Program Data
 	char data[256]; //Data
 	char stack[256]; //call stack
@@ -37,38 +38,38 @@ char *deassembly(int opcode)
 	switch(opcode)
 	{
 			case NOP:
-				stpcpy(mnemonic,"NOP_ ");
+				stpcpy(mnemonic,"\tNOP_ ");
 				break;
 			case INC:
-				stpcpy(mnemonic,"INC_+");
+				stpcpy(mnemonic,"\tINC_+");
 				break;				
 			case DEC:
-				stpcpy(mnemonic,"DEC_-");
+				stpcpy(mnemonic,"\tDEC_-");
 				break;
 			case AINC:
-				stpcpy(mnemonic,"AINC_>");
+				stpcpy(mnemonic,"\tAINC_>");
 				break;				
 			case ADEC:
-				stpcpy(mnemonic,"ADEC_<");
+				stpcpy(mnemonic,"\tADEC_<");
 				break;
 			case IN:
-				stpcpy(mnemonic,"IN_,");
+				stpcpy(mnemonic,"\tIN_,");
 				break;				
 			case OUT:
-				stpcpy(mnemonic,"OUT_.");
+				stpcpy(mnemonic,"\tOUT_.");
 				break;
 			case LOOPS:
-				stpcpy(mnemonic,"LOOPS_[");
+				stpcpy(mnemonic,"\tLOOPS_[");
 				break;				
 			case LOOPE:
-				stpcpy(mnemonic,"LOOPE_]");
+				stpcpy(mnemonic,"\tLOOPE_]");
 				break;
 	
 			case COPYD:
-				stpcpy(mnemonic,"COPYD_C");
+				stpcpy(mnemonic,"\tCOPYD_C");
 				break;				
 			case COPYC:
-				stpcpy(mnemonic,"COPYC_c");
+				stpcpy(mnemonic,"\tCOPYC_c");
 				break;
 			case PASTED:
 				stpcpy(mnemonic,"PASTED_P");
@@ -78,11 +79,14 @@ char *deassembly(int opcode)
 				break;
 			
 			case TRAP:
-				stpcpy(mnemonic,"TRAP_T");
+				stpcpy(mnemonic,"\tTRAP_T");
 				break;				
+			case HALT:
+				strcpy(mnemonic,"\tHALT_H");
+				break;
 			default :
-				stpcpy(mnemonic,"ERROR!!!");
-			break;
+				stpcpy(mnemonic,"\tERROR!!!");
+				break;
 			
 			
 	}
@@ -195,6 +199,10 @@ int load()
 				computer_mem.program[computer_mem.PC]=TRAP;
 				computer_mem.PC++;
 				break;
+			case 'H':
+				computer_mem.program[computer_mem.PC]=HALT;
+				computer_mem.PC++;
+				break;
 			default:
 				break;
 			
@@ -233,7 +241,7 @@ int run()
 			{
 				int tmp=computer_mem.data[(computer_mem.DP+i)%256];
 				printf("%d %c\t%c\t",tmp,(tmp<' '||tmp>127)?'.':tmp,(i==0)?'<':'|');
-				printf("%s\t%c\t",deassembly(computer_mem.program[(computer_mem.PC+i)%256]),(i==0)?'<':'|');
+				printf("%s\t%c",deassembly(computer_mem.program[(computer_mem.PC+i)%256]),(i==0)?'<':'|');
 				printf("%d\t%c\n",computer_mem.stack[(computer_mem.SP+i)%256],(i==0)?'<':'|');
 			}
 			
@@ -344,6 +352,13 @@ int run()
 		
 				computer_mem.TF=true;
 				computer_mem.PC++;
+				break;
+			case HALT:
+				return 0; // to end
+				break;
+			default:
+				printf("ERROR:WRONG OPCODE!!!\n");
+				return -1;
 				break;
 		
 		}
