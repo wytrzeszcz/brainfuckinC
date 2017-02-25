@@ -232,7 +232,7 @@ int run()
 			for(i;i<5;i++)
 			{
 				int tmp=computer_mem.data[(computer_mem.DP+i)%256];
-				printf("%d ( %c )\t%c\t",tmp,(tmp<' '||tmp>127)?'Щ':tmp,(i==0)?'<':'|');
+				printf("%d %c\t%c\t",tmp,(tmp<' '||tmp>127)?'.':tmp,(i==0)?'<':'|');
 				printf("%s\t%c\t",deassembly(computer_mem.program[(computer_mem.PC+i)%256]),(i==0)?'<':'|');
 				printf("%d\t%c\n",computer_mem.stack[(computer_mem.SP+i)%256],(i==0)?'<':'|');
 			}
