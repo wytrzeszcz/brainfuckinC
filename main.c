@@ -55,7 +55,7 @@ char *deassembly(int opcode)
 				stpcpy(mnemonic,"IN_.");
 				break;				
 			case OUT:
-				stpcpy(mnemonic,"DEC_,");
+				stpcpy(mnemonic,"OUT_,");
 				break;
 			case LOOPS:
 				stpcpy(mnemonic,"LOOPS_[");
@@ -227,12 +227,14 @@ int run()
 			printf("ACC:%d\t",computer_mem.ACC);
 			printf("CB:%c\n",computer_mem.CB);
 			int i=-4;
+			
 			printf("DATA\t|\tCODE\t|\tSTACK\n");
 			for(i;i<5;i++)
 			{
-				printf("%c\t%c\t",computer_mem.data[(computer_mem.DP+i)%256],(i==0)?'<':'|');
+				int tmp=computer_mem.data[(computer_mem.DP+i)%256]
+				printf("%d ( %c )\t%c\t",tmp,(tmp<' '||tmp>127)?'XX':tmp,(i==0)?'<':'|');
 				printf("%s\t%c\t",deassembly(computer_mem.program[(computer_mem.PC+i)%256]),(i==0)?'<':'|');
-				printf("%c\t%c\n",computer_mem.stack[(computer_mem.SP+i)%256],(i==0)?'<':'|');
+				printf("%d\t%c\n",computer_mem.stack[(computer_mem.SP+i)%256],(i==0)?'<':'|');
 			}
 			
 			printf("Continue Debuging?(Y/n):");
@@ -257,7 +259,7 @@ int run()
 			case DEC:
 			
 				computer_mem.ACC=computer_mem.data[computer_mem.DP];
-				computer_mem.ACC++;
+				computer_mem.ACC--;
 				computer_mem.data[computer_mem.DP]=computer_mem.ACC;
 				computer_mem.PC++;
 				break;
