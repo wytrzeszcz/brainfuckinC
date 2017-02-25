@@ -338,11 +338,12 @@ int run()
 				break;
 			
 		
-		case TRAP:
-		{
-			computer_mem.TF=true;
-			computer_mem.PC++;
-			break;
+			case TRAP:
+		
+				computer_mem.TF=true;
+				computer_mem.PC++;
+				break;
+		
 		}
 	}
 }
