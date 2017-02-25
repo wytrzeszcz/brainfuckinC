@@ -5,8 +5,8 @@
 #define DEC 2 /*-*/
 #define AINC 3 /*>*/
 #define ADEC 4 /*<*/
-#define IN 5 /*.*/
-#define OUT 6 /*,*/
+#define IN 5 /*,*/
+#define OUT 6 /*.*/
 #define LOOPS 7 /*[*/
 #define LOOPE 8 /*]*/
 #define COPYD 9 /*C Copy  data[DP] into clipboard */
@@ -52,10 +52,10 @@ char *deassembly(int opcode)
 				stpcpy(mnemonic,"ADEC_<");
 				break;
 			case IN:
-				stpcpy(mnemonic,"IN_.");
+				stpcpy(mnemonic,"IN_,");
 				break;				
 			case OUT:
-				stpcpy(mnemonic,"OUT_,");
+				stpcpy(mnemonic,"OUT_.");
 				break;
 			case LOOPS:
 				stpcpy(mnemonic,"LOOPS_[");
@@ -142,13 +142,13 @@ int load()
 				computer_mem.PC++;
 				break;
 			
-			case '.':
+			case ',':
 			
 				computer_mem.program[computer_mem.PC]=IN;
 				computer_mem.PC++;
 				break;
 			
-			case ',':
+			case '.':
 			
 				computer_mem.program[computer_mem.PC]=OUT;
 				computer_mem.PC++;
