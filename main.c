@@ -225,7 +225,7 @@ int run()
 			printf("PC:%d\t",computer_mem.PC);
 			printf("SP:%d\t",computer_mem.SP);
 			printf("ACC:%d\t",computer_mem.ACC);
-			printf("CB:%c\t",computer_mem.CB);
+			printf("CB:%c\n",computer_mem.CB);
 			int i=-4;
 			printf("DATA\t|\tCODE\t|\tSTACK\n");
 			for(i;i<5;i++)
