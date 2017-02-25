@@ -215,6 +215,7 @@ int run()
 {
 	while (1==1)
 	{
+
 		usleep(10*1000);
 		computer_mem.PC%=255;
 		if(computer_mem.TF)
@@ -277,8 +278,8 @@ int run()
 				
 			case IN:
 		
-				char in=getchar();
-				computer_mem.data[computer_mem.DP]=in;
+				
+				computer_mem.data[computer_mem.DP]=getchar();
 				computer_mem.PC++;
 				break;
 				
@@ -326,20 +327,20 @@ int run()
 					
 			case PASTED:
 			
-				computer_mem.data[computer_mem.DP]=CB;
+				computer_mem.data[computer_mem.DP]=computer_mem.CB;
 				computer_mem.PC++;
 				break;
 			
 			case PASTEC:
 			
-				computer_mem.program[computer_mem.PC]=CB;
+				computer_mem.program[computer_mem.PC]=computer_mem.CB;
 				computer_mem.PC++;
 				break;
 			
 		
 		case TRAP:
 		{
-			TF=true;
+			computer_mem.TF=true;
 			computer_mem.PC++;
 			break;
 		}
