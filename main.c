@@ -38,54 +38,54 @@ char *deassembly(int opcode)
 	switch(opcode)
 	{
 			case NOP:
-				stpcpy(mnemonic,"\tNOP_ ");
+				strcpy(mnemonic,"\tNOP_ ");
 				break;
 			case INC:
-				stpcpy(mnemonic,"\tINC_+");
+				strcpy(mnemonic,"\tINC_+");
 				break;				
 			case DEC:
-				stpcpy(mnemonic,"\tDEC_-");
+				strcpy(mnemonic,"\tDEC_-");
 				break;
 			case AINC:
-				stpcpy(mnemonic,"\tAINC_>");
+				strcpy(mnemonic,"\tAINC_>");
 				break;				
 			case ADEC:
-				stpcpy(mnemonic,"\tADEC_<");
+				strcpy(mnemonic,"\tADEC_<");
 				break;
 			case IN:
-				stpcpy(mnemonic,"\tIN_,");
+				strcpy(mnemonic,"\tIN_,");
 				break;				
 			case OUT:
-				stpcpy(mnemonic,"\tOUT_.");
+				strcpy(mnemonic,"\tOUT_.");
 				break;
 			case LOOPS:
-				stpcpy(mnemonic,"\tLOOPS_[");
+				strcpy(mnemonic,"\tLOOPS_[");
 				break;				
 			case LOOPE:
-				stpcpy(mnemonic,"\tLOOPE_]");
+				strcpy(mnemonic,"\tLOOPE_]");
 				break;
 	
 			case COPYD:
-				stpcpy(mnemonic,"\tCOPYD_C");
+				strcpy(mnemonic,"\tCOPYD_C");
 				break;				
 			case COPYC:
-				stpcpy(mnemonic,"\tCOPYC_c");
+				strcpy(mnemonic,"\tCOPYC_c");
 				break;
 			case PASTED:
-				stpcpy(mnemonic,"PASTED_P");
+				strcpy(mnemonic,"PASTED_P");
 				break;				
 			case PASTEC:
-				stpcpy(mnemonic,"PASTEC_p");
+				strcpy(mnemonic,"PASTEC_p");
 				break;
 			
 			case TRAP:
-				stpcpy(mnemonic,"\tTRAP_T");
+				strcpy(mnemonic,"\tTRAP_T");
 				break;				
 			case HALT:
 				strcpy(mnemonic,"\tHALT_H");
 				break;
 			default :
-				stpcpy(mnemonic,"\tERROR!!!");
+				strcpy(mnemonic,"\tERROR!!!");
 				break;
 			
 			
